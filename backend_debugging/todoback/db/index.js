@@ -4,6 +4,7 @@ const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
+require("dotenv").config();
 
 mongoose
   .connect(process.env.DB_URI, options)

@@ -36,7 +36,7 @@ const getCompletedTodos = (req, res) => {
 };
 
 const createTodo = (req, res) => {
-  const task = req.body.task;
+  const {task} = req.body;
   const newTodo = new todoModel({
     task,
   });
@@ -56,7 +56,7 @@ const completeTodo = (req, res) => {
   const { id } = req.params;
 
   todoModel
-    .findOneAndUpdate({ id }, { isCompleted: true }, { new: true })
+    .findOneAndUpdate({ _id: id }, { isCompleted: true }, { new: true })
     .exec()
     .then((result) => {
       res.status(200).json(result);
@@ -84,7 +84,7 @@ const deleteTodo = (req, res) => {
   const { id } = req.params;
 
   todoModel
-    .findOneAndUpdate({ _id: id }, { isDel: true })
+    .findOneAndUpdate({ _id: id }, { isDel: true }, { new: true })
     .then((result) => {
       res.status(200).json(result);
     })
@@ -100,5 +100,5 @@ module.exports = {
   createTodo,
   completeTodo,
   deleteTodo,
-  updateTodo
+  updateTodo,
 };
